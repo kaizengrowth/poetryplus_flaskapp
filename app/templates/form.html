@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Transformation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Oulipo Variations</h1>
+    <h3>V+1</h3>
+    <form method="POST">
+        <textarea id="data" name="data" rows="40" cols="50" placeholder="Enter poem here..."></textarea>
+        <br>
+        <input type="submit" value="Transform">
+    </form>
+
+    {% if transformed_text %}
+        <div id="result">
+            <h2>V + 1 -- poem transformation:</h2>
+            <pre>{{ transformed_text }}</pre>
+        </div>
+    {% endif %}
+</body>
+</html>
