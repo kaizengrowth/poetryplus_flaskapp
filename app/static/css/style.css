@@ -1,6 +1,6 @@
 body {
-  background-color: #f0f0f0; /* Light background color */
-  color: #333; /* Dark text color */
+  background-color: #f0f0f0;
+  color: #333;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 24px;
@@ -12,11 +12,25 @@ body {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 34px;
   margin-bottom: 16px;
   padding: 16px 0;
   width: 100%;
   max-width: 640px;
+}
+
+h1 span {
+  animation: colorChange 5s infinite;
+}
+
+#intro {
+  width: 85%;
+  text-align: center;
+}
+
+a {
+  color: #0056b3;
+  font-weight: bold;
 }
 
 form {
@@ -32,7 +46,7 @@ textarea, input[type="submit"] {
 }
 
 textarea {
-  height: 150px;
+  height: 250px;
   background-color: #fff;
   color: #333;
   border: 1px solid #ccc;
@@ -41,13 +55,57 @@ textarea {
 }
 
 input[type="submit"] {
-  background-color: #808080;
+  flex: 1;
   color: #fff;
   border: 1px solid #007bff;
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 4px;
+  cursor: pointer;
+}
+
+#V7 {
+  background-color: #CCC;
+  color: #333;
+  font-weight: 600;
+}
+
+#V7:hover {
+  background-color:  #0056b3;
+  border-color:  #0056b3;
+  color: #FAFAFA;
+}
+
+#A7 {
+  background-color: #999;
+}
+
+#A7:hover {
+  background-color: #0818A8;
+  border-color:  #0818A8;
+}
+
+#Rhyme7 {
+  background-color: #666;
+}
+
+#Rhyme7:hover {
+  background-color:  #000080;
+  border-color:  #000080;
+}
+
+#Music7 {
+  background-color: #333;
+}
+
+#Music7:hover {
+  background-color: #000066;
+  border-color: #000066;
 }
 
 input[type="submit"]:hover {
@@ -55,19 +113,95 @@ input[type="submit"]:hover {
   border-color: #0056b3;
 }
 
-#result {
-  margin-top: 16px;
+#explanation {
+  margin-top: 15px;
+  color: #333;
+  font-style: italic;
+}
+
+.button-group {
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+}
+
+.poems-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
   width: 100%;
-  max-width: 640px;
-  padding: 8px;
-  background-color: #fff;
+}
+
+.poem {
+  width: 48%; /* Each poem takes up nearly half the width of the container */
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 36px;
+  min-width: 300px;
   color: #333;
   border-radius: 4px;
   text-align: left;
   word-wrap: break-word;
-  border: 1px solid #ccc;
 }
 
-#result pre {
+
+#result {
+  background-color: #e6e6e6;
+  border: 2px solid #FFFF00;
+}
+
+#original {
+  background-color: #d3d3d3;
+  border: 2px solid #0056b3;
+}
+
+pre {
   white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+.glow-on-hover {
+  width: 25%;
+  transition: filter 0.5s ease-in-out;
+}
+
+.glow-on-hover:hover {
+  filter: drop-shadow(0 0 5px yellow);
+  animation: growAndShake 0.5s ease-in-out;
+}
+
+#footnote {
+  margin-top: 80px;
+  width: 95%
+  padding: 12px;
+  background-color: transparent;
+  border-radius: 4px;
+  text-align: center;
+  word-wrap: break-word;
+  border: 1px solid #818589;
+}
+
+#footnote p {
+  font-size: 13px;
+}
+
+@keyframes colorChange {
+  0% { color: #333; }
+  20% { color: #666; }
+  40% { color: #999; }
+  60% { color: #CCC; }
+  80% { color: #999; }
+  100% { color: #666; }
+}
+
+@keyframes growAndShake {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }

@@ -3,23 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Transformation</title>
+    <title>Oulipo Variations by Kai Lin Cort (SFPC)</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 </head>
 <body>
-    <h1>Oulipo Variations</h1>
-    <h3>V+1</h3>
-    <form method="POST">
-        <textarea id="data" name="data" rows="40" cols="50" placeholder="Enter poem here..."></textarea>
-        <br>
-        <input type="submit" value="Transform">
-    </form>
+    <img src="{{ url_for('static', filename='spoonbill.gif') }}">
+    <h1>Oulipo <span>Variations</span></h1>
+    <div id="intro">
+        <p id="intro">The <a href="http://www.spoonbill.org/n+7/">N+7 procedure</a>, invented in 1961 by Jean Lescure of the French <a href="https://www.oulipo.net/">Oulipo poets</a>, involves replacing each noun in a text with the seventh one following it in a dictionary.</p>
 
-    {% if transformed_text %}
-        <div id="result">
-            <h2>V + 1 -- poem transformation:</h2>
-            <pre>{{ transformed_text }}</pre>
+        <form method="POST">
+            <textarea id="data" name="data" rows="100" cols="50" placeholder="Enter poem here..."></textarea>
+            <br>
+            <div class="button-group">
+                <input type="submit" name="action" value="V+7" id="V7">
+                <input type="submit" name="action" value="A+7" id="A7">
+                <input type="submit" name="action" value="Rhyme+7" id="Rhyme7">
+                <input type="submit" name="action" value="Music+7" id="Music7">
+            </div>
+        </form>
+
+        <p id="explanation"></p>
+
+    </div>
+
+    {% if midi_file %}
+        <div class="midi-player-container">
+            <h2>Listen to the Generated Music:</h2>
+            <img src="{{ url_for('static', filename='boombox.png') }}" alt="Boombox" class="glow-on-hover">
+            <a href="#" onClick="MIDIjs.play('{{ url_for('static', filename=midi_file) }}'); return false;">▶ Play Song</a>
         </div>
     {% endif %}
+
+    <div class="poems-container">
+        {% if transformed_text %}
+            <div id="result" class="poem">
+                <h2>Transformed Poem: <span style="font-weight: lighter; font-style: italic;">{{ transformation_type }}</span></h2>
+                <pre>{{ transformed_text|safe }}</pre>
+            </div>
+            <br/>
+            <div id="original" class="poem">
+                <h2>Original Poem:</h2>
+                <pre>{{ original_text }}</pre>
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="footnote">
+        <p>Playful variations created by <a href="https://github.com/kaizengrowth">Kai Lin Cort</a> for the School for Poetic Computation class: <a href="https://sfpc.study/sessions/spring-24/lets-play">Let's Play: Wayward Sentences</a>, taught by <a href="https://kameelahr.com/">Kameelah Janan Rasheed</a> and Shiraz Abdullahi Gallab.</p>
+        <p>Built with the <a href="https://github.com/explosion/spaCy">spaCy</a> Python natural language processing library, the <a href="https://www.datamuse.com/api/">DataMuse API</a> for rhymes, <a href="https://www.midijs.net/">Midi.js</a> for the jukebox, and a minimalist <a href="https://flask.palletsprojects.com/en/3.0.x/">Flask</a> application deployed on <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>. Original Jupyter notebook exploration <a href="https://colab.research.google.com/drive/1n_iPrA9bjH0i1BBZq9wmipgCo1uFrNRL?usp=sharing">here.</a></p>
+    </div>
+
+    <script>
+        document.getElementById('V7').onmouseover = function() {
+            document.getElementById('explanation').innerHTML = 'Replace every VERB with the seventh verb following it in the English dictionary.';
+        }
+        document.getElementById('V7').onmouseout = function() {
+            document.getElementById('explanation').innerHTML = '';
+        }
+
+        document.getElementById('A7').onmouseover = function() {
+            document.getElementById('explanation').innerHTML = 'Replace every ADJECTIVE with the seventh adjective following it in the English dictionary.';
+        }
+        document.getElementById('A7').onmouseout = function() {
+            document.getElementById('explanation').innerHTML = '';
+        }
+
+        document.getElementById('Rhyme7').onmouseover = function() {
+            document.getElementById('explanation').innerHTML = 'Replace every seventh word with a random RHYMING word.';
+        }
+        document.getElementById('Rhyme7').onmouseout = function() {
+            document.getElementById('explanation').innerHTML = '';
+        }
+        document.getElementById('Music7').onmouseover = function() {
+            document.getElementById('explanation').innerHTML = 'Generate a piece of music where every seventh character determines the pitch of a note.';
+        }
+        document.getElementById('Music7').onmouseout = function() {
+            document.getElementById('explanation').innerHTML = '';
+        }
+
+    </script>
 </body>
 </html>
